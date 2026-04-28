@@ -102,19 +102,21 @@ def _annotate_frame(frame: np.ndarray,
         draw_text(frame, "!!! DROWSINESS ALERT — WAKE UP !!!",
                   (10, h - 20), color=(255, 255, 255), scale=0.75, thickness=2)
 
+    # Display FPS
     fps_text = f"FPS: {fps:.1f}"
     fps_size = cv2.getTextSize(fps_text, cv2.FONT_HERSHEY_SIMPLEX, FONT_SCALE, 2)[0]
     draw_text(frame, fps_text, (w - fps_size[0] - 10, 30),
               color=(255, 255, 0), scale=FONT_SCALE)
 
-    inf_text = f"Inf: {inference_ms:.1f} ms"
-    inf_size = cv2.getTextSize(inf_text, cv2.FONT_HERSHEY_SIMPLEX, FONT_SCALE, 2)[0]
-    draw_text(frame, inf_text, (w - inf_size[0] - 10, 60),
-              color=(255, 200, 0), scale=FONT_SCALE)
+    # Display Latency (Inference Time)
+    lat_text = f"Latency: {inference_ms:.1f} ms"
+    lat_size = cv2.getTextSize(lat_text, cv2.FONT_HERSHEY_SIMPLEX, FONT_SCALE, 2)[0]
+    draw_text(frame, lat_text, (w - lat_size[0] - 10, 60),
+              color=(0, 255, 255), scale=FONT_SCALE)
 
     draw_text(frame, f"Alarms: {state['total_alarms']}",
               (w - 120, 90), color=(0, 180, 255), scale=FONT_SCALE)
-
+    
 def init_state() -> dict:
     return {
         "counter"      : 0,
